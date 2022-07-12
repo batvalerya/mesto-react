@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../utils/api.js";
 
 function Main({onEditProfile, onAddPlace, onEditAvatar}) {
@@ -7,13 +7,17 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
     const [userDescription, setUserDescription] = useState('');
     const [userAvatar, setUserAvatar] = useState();
 
-    api.getUserInfo()
-        .then((result) => {
-            setUserName(result['name']);
-            setUserDescription(result['about']);
-            setUserAvatar(result['avatar']);
-        }
-    )
+    useEffect(() => {
+        api.getUserInfo()
+            .then((result) => {
+                setUserName(result['name']);
+                setUserDescription(result['about']);
+                setUserAvatar(result['avatar']);
+            }
+        )
+      }, [userName, userDescription, userAvatar]
+    );
+
 
     return(
         <main className="content">
