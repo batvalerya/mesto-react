@@ -1,17 +1,28 @@
-function Main(props) {
+function Main({onEditProfile, onAddPlace, onEditAvatar}) {
+
     return(
         <main className="content">
 
             <section className="profile">
-                <div className="profile__avatar" onClick={props.onEditAvatar}></div>
+                <div 
+                    className="profile__avatar"
+                    onClick={onEditAvatar}
+                    ></div>
                 <div className="profile__intro">
                     <div className="author">
                         <h1 className="author__name">Жак-Ив Кусто</h1>
                         <p className="author__profession">Исследователь океана</p>
                     </div>
-                    <button className="profile__edit-button" type="button" onClick={props.onEditProfile} ></button>
+                    <button 
+                        className="profile__edit-button" 
+                        type="button" 
+                        onClick={onEditProfile}></button>
                 </div>
-                <button className="profile__add-button" type="button" onClick={props.onAddPlace}></button>   
+                <button 
+                className="profile__add-button" 
+                type="button"
+                onClick={onAddPlace}
+                ></button>   
             </section>
 
             <section className="photo-gallery">
@@ -33,21 +44,6 @@ function Main(props) {
             </section>
         </main>
     )
-
-    // function handleEditAvatarClick () {
-    //    const editAvatarForm = document.querySelector('.popup_edit-avatar');
-    //    editAvatarForm.classList.add('popup_is-opened');
-    // }
-
-    // function handleEditProfileClick () {
-    //     const editProfileForm = document.querySelector('.popup_edit-profile');
-    //     editProfileForm.classList.add('popup_is-opened');
-    // }
-
-    // function handleAddPlaceClick () {
-    //     const editProfileForm = document.querySelector('.popup_add-card');
-    //     editProfileForm.classList.add('popup_is-opened');
-    // }
     
 }
 
