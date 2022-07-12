@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import '../index.css';
-import Header from './Header';
-import Main from './Main';
+import Header from './Header.js';
+import Main from './Main.js';
 import Footer from './Footer';
-import PopupWithForm from './PopupWithForm';
-import ImagePopup from './ImagePopup';
+import PopupWithForm from './PopupWithForm.js';
+import ImagePopup from './ImagePopup.js';
 
 function App() {
 
@@ -48,17 +48,17 @@ function App() {
         onClose={closeAllPopups}
         isOpen={isEditProfilePopupOpen ? 'popup_is-opened' : ''}
         >
-              <form className="popup__form popup__form_type_edit" name="aboutUser" novalidate>
+              <form className="popup__form popup__form_type_edit" name="aboutUser" noValidate>
                 <input 
                   className="popup__input popup__input_type_name" 
                   type="text" 
                   id="name-input"
                   name="name" 
                   placeholder="Имя" 
-                  value 
+                  defaultValue
                   required 
-                  minlength="2" 
-                  maxlength="40" 
+                  minLength="2" 
+                  maxLength="40" 
                 />
                 <span id="name-input-error" className="popup__input-error"></span>
                 <input 
@@ -66,10 +66,10 @@ function App() {
                   type="text" 
                   name="description" 
                   placeholder="О себе" 
-                  value 
+                  defaultValue 
                   required 
-                  minlength="2" 
-                  maxlength="200" 
+                  minLength="2" 
+                  maxLength="200" 
                   id="description-input"
                 />
                 <span id="description-input-error" className="popup__input-error"></span>
@@ -84,17 +84,17 @@ function App() {
         onClose={closeAllPopups}
         isOpen={isAddPlacePopupOpen ? 'popup_is-opened' : ''}
         >
-              <form className="popup__form popup__form_type_add" name="addCard" novalidate>
+              <form className="popup__form popup__form_type_add" name="addCard" noValidate>
                 <input 
                   className="popup__input popup__input_type_new-name" 
                   type="text" 
                   name="name" 
                   id="new-name-input"
                   placeholder="Название" 
-                  value 
+                  defaultValue 
                   required 
-                  minlength="2" 
-                  maxlength="30" />
+                  minLength="2" 
+                  maxLength="30" />
                 <span id="new-name-input-error" className="popup__input-error"></span>
                 <input 
                   className="popup__input  popup__input_type_link" 
@@ -102,7 +102,7 @@ function App() {
                   name="link" 
                   id="link-input"
                   placeholder="Ссылка на картинку" 
-                  value 
+                  defaultValue 
                   required 
                   />
                 <span id="link-input-error" className="popup__input-error"></span>
@@ -111,7 +111,7 @@ function App() {
       </PopupWithForm>
 
       <PopupWithForm title="Вы уверены?" name="confirm">
-              <form className="popup__form" name="deleteCard" novalidate>
+              <form className="popup__form" name="deleteCard" noValidate>
                 <button className="popup__submit popup__confirm-button" type="submit">Да</button>
               </form>
       </PopupWithForm>
@@ -122,14 +122,14 @@ function App() {
       onClose={closeAllPopups}
       isOpen={isEditAvatarPopupOpen ? 'popup_is-opened' : ''}
       >
-              <form className="popup__form popup__form_type_avatar" name="editAvatar" novalidate>
+              <form className="popup__form popup__form_type_avatar" name="editAvatar" noValidate>
                 <input 
                   className="popup__input  popup__input_type_link" 
                   type="url" 
                   name="link" 
                   id="url-input"
                   placeholder="Ссылка на картинку" 
-                  value 
+                  defaultValue 
                   required />
                 <span id="url-input-error" className="popup__input-error"></span>
                 <button className="popup__submit popup__create-button" type="submit">Сохранить</button>
