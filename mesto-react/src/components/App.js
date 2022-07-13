@@ -8,6 +8,11 @@ import ImagePopup from './ImagePopup.js';
 
 function App() {
 
+  const [selectedCard, setSelectedCard] = useState(null);
+  function handleCardClick(card) {
+    setSelectedCard(card)
+  }
+
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   function handleEditProfileClick() {
     setEditProfilePopupOpen(true);
@@ -27,6 +32,7 @@ function App() {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
     setEditAvatarPopupOpen(false);
+    setSelectedCard(null);
   }
 
 
@@ -38,6 +44,7 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
+          onCardClick={handleCardClick}
         />
         <Footer />
       </div>
@@ -136,7 +143,10 @@ function App() {
               </form>
       </PopupWithForm>
 
-      <ImagePopup/>
+      <ImagePopup 
+        onClose={closeAllPopups}
+        card={selectedCard}
+      />
 
     </>
   );

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { api } from "../utils/api.js";
 import Card from "../components/Card.js"
 
-function Main({onEditProfile, onAddPlace, onEditAvatar}) {
+function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
 
     const [userName, setUserName] = useState('');
     const [userDescription, setUserDescription] = useState('');
@@ -22,7 +22,6 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
             api.getInitialCards()
                 .then((res) => {
                     setCards(res)
-                    console.log(res)
                 })
         })}, []
     );
@@ -58,7 +57,11 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
                 <ul className="photo-gallery__items">
                         {cards.map((card) => {
                             return (
-                                <Card card={card} key={card._id}/>
+                                <Card 
+                                    card={card} 
+                                    key={card._id}
+                                    onCardClick={onCardClick}
+                                />
                             )
                         })}
                 </ul>
