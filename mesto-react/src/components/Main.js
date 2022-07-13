@@ -17,13 +17,21 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
                 setUserAvatar(result['avatar']);
             }
         )
+            .catch(() => {
+                console.log('Ошибка')
+            }
+        )
 
         .then(() => {
             api.getInitialCards()
                 .then((res) => {
                     setCards(res)
                 })
-        })}, []
+        })
+            .catch(() => {
+                console.log('Ошибка')
+            }
+        )}, []
     );
 
 
