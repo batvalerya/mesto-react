@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { api } from "../utils/api.js";
+import Card from "../components/Card.js"
 
 function Main({onEditProfile, onAddPlace, onEditAvatar}) {
 
     const [userName, setUserName] = useState('');
     const [userDescription, setUserDescription] = useState('');
     const [userAvatar, setUserAvatar] = useState();
+    const [cards, setCards] = useState([]);
 
     useEffect(() => {
         api.getUserInfo()
@@ -15,7 +17,14 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
                 setUserAvatar(result['avatar']);
             }
         )
-      }, [userName, userDescription, userAvatar]
+
+        .then(() => {
+            api.getInitialCards()
+                .then((res) => {
+                    setCards(res)
+                    console.log(res)
+                })
+        })}, []
     );
 
 
@@ -47,19 +56,11 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
 
             <section className="photo-gallery">
                 <ul className="photo-gallery__items">
-                    <template className="templateCard">
-                        <li className="photo-gallery__item">
-                            <button className="photo-gallery__delete-button" type="button"></button>
-                            <img className="photo-gallery__image" src="#" alt="" />
-                            <div className="photo-gallery__caption">
-                                <h2 className="photo-gallery__title"></h2>
-                                <div className="photo-gallery__counter">
-                                    <button className="like-button" type="button"></button>
-                                    <p className="photo-gallery__counter-number"></p>
-                                </div>
-                            </div>
-                        </li>
-                    </template>
+                        {cards.map((card) => {
+                            return (
+                                <Card card={card} key={card._id}/>
+                            )
+                        })}
                 </ul>
             </section>
         </main>
