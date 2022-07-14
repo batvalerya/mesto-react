@@ -35,6 +35,12 @@ function App() {
     setSelectedCard(null);
   }
 
+  function handleOverlayClick(event) {
+    if (event.target === event.currentTarget) {
+      closeAllPopups()
+    }
+  }
+
 
   return (
     <>
@@ -56,6 +62,7 @@ function App() {
         isOpen={isEditProfilePopupOpen ? 'popup_is-opened' : ''}
         popupContainerClass={'popup__container'}
         buttonText="Сохранить"
+        onOverlayClick={handleOverlayClick}
         >
               <input 
                   className="popup__input popup__input_type_name" 
@@ -91,6 +98,7 @@ function App() {
         isOpen={isAddPlacePopupOpen ? 'popup_is-opened' : ''}
         popupContainerClass={'popup__container'}
         buttonText="Создать"
+        onOverlayClick={handleOverlayClick}
         >
               <input 
                 className="popup__input popup__input_type_new-name" 
@@ -120,7 +128,9 @@ function App() {
         title="Вы уверены?" 
         name="confirm"
         popupContainerClass={'popup__confirm-container'}
-        buttonText="Да">
+        buttonText="Да"
+        onOverlayClick={handleOverlayClick}
+        >
       </PopupWithForm>
 
       <PopupWithForm 
@@ -130,6 +140,7 @@ function App() {
       isOpen={isEditAvatarPopupOpen ? 'popup_is-opened' : ''}
       popupContainerClass={'popup__avatar-container'}
       buttonText="Сохранить"
+      onOverlayClick={handleOverlayClick}
       >
               <input 
                 className="popup__input  popup__input_type_link" 
@@ -146,6 +157,7 @@ function App() {
       <ImagePopup 
         onClose={closeAllPopups}
         card={selectedCard}
+        onOverlayClick={handleOverlayClick}
       />
 
     </>

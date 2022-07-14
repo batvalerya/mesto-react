@@ -1,6 +1,9 @@
-function ImagePopup({card, onClose}) {
+function ImagePopup({card, onClose, onOverlayClick}) {
     return(
-        <div className={`popup popup_card ${card !== null ? 'popup_is-opened' : ''}`}>
+        <div 
+          className={`popup popup_card ${card !== null ? 'popup_is-opened' : ''}`}
+          onClick={onOverlayClick}
+          >
             <div className="popup__card-container">
               <button 
                 className="popup__close-button" 

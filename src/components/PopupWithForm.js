@@ -3,6 +3,7 @@ function PopupWithForm(props) {
     return(
         <div 
             className={`popup popup_${props.name} ${props.isOpen}`}
+            onClick={props.onOverlayClick}
             >
             <div className={props.popupContainerClass}>
                 <button 
