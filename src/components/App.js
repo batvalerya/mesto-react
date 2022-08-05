@@ -1,12 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { api } from '../utils/api';
 import '../index.css';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 function App() {
+
+  const [currentUser, updateCurrentUser] = useState([]);
+  useEffect(() => {
+    api.getUserInfo()
+        .then((result) => {
+            updateCurrentUser(result)
+        }
+    )
+        .catch(() => {
+            console.log('Ошибка')
+        }
+    )}, []
+  );
 
   const [selectedCard, setSelectedCard] = useState(null);
   function handleCardClick(card) {
@@ -44,6 +59,7 @@ function App() {
 
   return (
     <>
+    <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header />
         <Main 
@@ -159,7 +175,7 @@ function App() {
         card={selectedCard}
         onOverlayClick={handleOverlayClick}
       />
-
+    </CurrentUserContext.Provider>
     </>
   );
 }
