@@ -11,6 +11,20 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
 
     const [cards, setCards] = useState([]);
 
+    function handleCardLike(card) {
+        const isLiked = card.likes.some(i => i._id === user._id);
+
+        console.log(isLiked)
+
+        api.changeLikeCardStatus(card._id, isLiked)
+            // .then((res) => {
+            //     console.log(res)
+            // })
+            .then((newCard) => {
+                setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+        });
+    }
+
     useEffect(() => {
         api.getInitialCards()
         .then((res) => {
@@ -57,6 +71,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
                                     card={card} 
                                     key={card._id}
                                     onCardClick={onCardClick}
+                                    onCardLike={handleCardLike}
                                 />
                             )
                         })}

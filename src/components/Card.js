@@ -19,6 +19,10 @@ function Card(props) {
         props.onCardClick(props.card);
     }
 
+    function handleLikeClick() {
+        props.onCardLike(props.card);
+    }
+
     return(
         <li className="photo-gallery__item">
             <button className="photo-gallery__delete-button" type="button"></button>
@@ -28,7 +32,9 @@ function Card(props) {
             <div className="photo-gallery__caption">
                 <h2 className="photo-gallery__title">{props.card.name}</h2>
                 <div className="photo-gallery__counter">
-                    <button className="like-button" type="button"></button>
+                    <button className={cardLikeButtonClassName} type="button"
+                        onClick={handleLikeClick}
+                        ></button>
                     <p className="photo-gallery__counter-number">{props.card.likes.length}</p>
                 </div>
             </div>
