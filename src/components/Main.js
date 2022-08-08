@@ -14,15 +14,20 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
     function handleCardLike(card) {
         const isLiked = card.likes.some(i => i._id === user._id);
 
-        console.log(isLiked)
-
         api.changeLikeCardStatus(card._id, isLiked)
-            // .then((res) => {
-            //     console.log(res)
-            // })
             .then((newCard) => {
-                setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+                setCards((state) => state.map((c) => c._id === card._id ? newCard : c
+                ));
         });
+    }
+
+    function handleCardDelete(card) {
+        const isOwn = card.owner._id === user._id;
+
+        api.removeCard(card._id, isOwn)
+            .then((updatedSetOfCards) => {
+                setCards((state) => state.filter((c) => c._id === card._id ? updatedSetOfCards : c));
+            })
     }
 
     useEffect(() => {
@@ -72,6 +77,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
                                     key={card._id}
                                     onCardClick={onCardClick}
                                     onCardLike={handleCardLike}
+                                    onCardDelete={handleCardDelete}
                                 />
                             )
                         })}
