@@ -5,6 +5,7 @@ import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm.js';
+import EditProfilePopup from './EditProfilePopup';
 import ImagePopup from './ImagePopup.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
@@ -71,7 +72,13 @@ function App() {
         <Footer />
       </div>
 
-      <PopupWithForm 
+      <EditProfilePopup 
+        onClose={closeAllPopups} 
+        isOpen={isEditProfilePopupOpen} 
+        onOverlayClick={handleOverlayClick}
+      /> 
+
+      {/* <PopupWithForm 
         title="Редактировать профиль" 
         name="edit-profile"
         onClose={closeAllPopups}
@@ -104,7 +111,7 @@ function App() {
                   id="description-input"
               />
               <span id="description-input-error" className="popup__input-error"></span>
-      </PopupWithForm>
+      </PopupWithForm> */}
 
 
       <PopupWithForm 
