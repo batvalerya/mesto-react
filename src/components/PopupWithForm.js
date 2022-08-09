@@ -9,12 +9,16 @@ function PopupWithForm(props) {
                 <button 
                     className="popup__close-button" 
                     type="button"
-                    onClick={props.onClose}
-                    ></button>
+                    onClick={props.onClose}>
+                    </button>
                 <h2 className="popup__title">{props.title}</h2>
-                <form className="popup__form popup__form_type_add" name={props.name} noValidate>
+                <form 
+                    className="popup__form popup__form_type_add" 
+                    name={props.name} 
+                    noValidate
+                    onSubmit={props.onSubmit}>
                     {props.children}
-                <button className="popup__submit" type="submit">{props.buttonText}</button>
+                <button className="popup__submit" type="submit" onSubmit={props.onSubmit}>{props.buttonText}</button>
                 </form>
             </div>
         </div>

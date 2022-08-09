@@ -57,6 +57,19 @@ function App() {
     }
   }
 
+  function handleUpdateUser({name, about}) {
+    api.updateUserInfo({name, about})
+      .then((result) => {
+        updateCurrentUser(result)
+      })
+      .then(() => {
+        closeAllPopups()
+      })
+      .catch(() => {
+        console.log('Ошибка')
+    }) 
+  }
+
 
   return (
     <>
@@ -76,43 +89,8 @@ function App() {
         onClose={closeAllPopups} 
         isOpen={isEditProfilePopupOpen} 
         onOverlayClick={handleOverlayClick}
+        onUpdateUser={handleUpdateUser}
       /> 
-
-      {/* <PopupWithForm 
-        title="Редактировать профиль" 
-        name="edit-profile"
-        onClose={closeAllPopups}
-        isOpen={isEditProfilePopupOpen ? 'popup_is-opened' : ''}
-        popupContainerClass={'popup__container'}
-        buttonText="Сохранить"
-        onOverlayClick={handleOverlayClick}
-        >
-              <input 
-                  className="popup__input popup__input_type_name" 
-                  type="text" 
-                  id="name-input"
-                  name="name" 
-                  placeholder="Имя" 
-                  defaultValue
-                  required 
-                  minLength="2" 
-                  maxLength="40" 
-              />
-              <span id="name-input-error" className="popup__input-error"></span>
-              <input 
-                  className="popup__input popup__input_type_description" 
-                  type="text" 
-                  name="description" 
-                  placeholder="О себе" 
-                  defaultValue 
-                  required 
-                  minLength="2" 
-                  maxLength="200" 
-                  id="description-input"
-              />
-              <span id="description-input-error" className="popup__input-error"></span>
-      </PopupWithForm> */}
-
 
       <PopupWithForm 
         title="Новое место" 
