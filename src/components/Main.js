@@ -16,7 +16,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
 
         api.changeLikeCardStatus(card._id, isLiked)
             .then((newCard) => {
-                setCards((state) => state.map((c) => c._id === card._id ? newCard : c
+                setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c
                 ));
         });
     }
@@ -26,7 +26,8 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
 
         api.removeCard(card._id, isOwn)
             .then((updatedSetOfCards) => {
-                setCards((state) => state.filter((c) => c._id === card._id ? updatedSetOfCards : c));
+                setCards((cards) => cards.filter((c) => c === updatedSetOfCards))
+                console.log(updatedSetOfCards)
             })
     }
 
