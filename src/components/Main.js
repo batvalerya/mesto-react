@@ -25,10 +25,9 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
         const isOwn = card.owner._id === user._id;
 
         api.removeCard(card._id, isOwn)
-            .then((updatedSetOfCards) => {
-                setCards((cards) => cards.filter((c) => c === updatedSetOfCards))
-                console.log(updatedSetOfCards)
-            })
+            .then((cards) => {
+                setCards(cards);
+        })
     }
 
     useEffect(() => {

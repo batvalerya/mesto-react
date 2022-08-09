@@ -73,7 +73,9 @@ class Api {
           method: 'DELETE',
           headers: this._headers,
         })
-        .then(this._handleServerResponse)
+        .then(() => {
+          return this._request('/cards')
+        })
       } else {
         return console.log('Удалять карточки может только владелец карточки')
       }
