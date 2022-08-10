@@ -67,18 +67,12 @@ class Api {
       .then(this._handleServerResponse)
     }
 
-    removeCard(cardId, isOwn) {
-      if(isOwn) {
-        return fetch(`${this._baseUrl}/cards/${cardId}`, {
-          method: 'DELETE',
-          headers: this._headers,
-        })
-        .then(() => {
-          return this._request('/cards')
-        })
-      } else {
-        return console.log('Удалять карточки может только владелец карточки')
-      }
+    removeCard(cardId) {
+      return fetch(`${this._baseUrl}/cards/${cardId}`, {
+        method: 'DELETE',
+        headers: this._headers,
+      })
+      .then(this._handleServerResponse)
     }
 
     editProfileAvatar({avatar}) {

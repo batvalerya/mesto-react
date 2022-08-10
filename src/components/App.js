@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { api } from '../utils/api';
 import '../index.css';
@@ -13,6 +14,44 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 function App() {
 
   const [currentUser, updateCurrentUser] = useState([]);
+
+  const [cards, setCards] = useState([]);
+
+  function handleCardLike(card) {
+
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    api.changeLikeCardStatus(card._id, isLiked)
+        .then((newCard) => {setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    });
+  }
+
+  function handleCardDelete(card) {
+    const isOwn = card.owner._id === currentUser._id;
+    if(isOwn) {
+      api.removeCard(card._id)
+      .then(() => {setCards((state) => state.filter((c) => c._id ===  card._id ? false : true));
+      })
+      .catch(() => {
+        console.log('Ошибка')
+      })
+    } else {
+      console.log('Вы не можете удалить чужую карточку')
+    }
+  }
+
+  useEffect(() => {
+    api.getInitialCards()
+    .then((res) => {
+        setCards(res)
+    })
+    .catch(() => {
+        console.log('Ошибка')
+    }
+    )}, []
+  );
+
+  
   useEffect(() => {
     api.getUserInfo()
         .then((result) => {
@@ -95,6 +134,9 @@ function App() {
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
+          cards={cards}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
         />
         <Footer />
       </div>
@@ -154,27 +196,6 @@ function App() {
         onOverlayClick={handleOverlayClick}
         onUpdateAvatar={handleUpdateAvatar}
       /> 
-
-      {/* <PopupWithForm 
-      title="Обновить аватар" 
-      name="edit-avatar"
-      onClose={closeAllPopups}
-      isOpen={isEditAvatarPopupOpen ? 'popup_is-opened' : ''}
-      popupContainerClass={'popup__avatar-container'}
-      buttonText="Сохранить"
-      onOverlayClick={handleOverlayClick}
-      >
-              <input 
-                className="popup__input  popup__input_type_link" 
-                type="url" 
-                name="link" 
-                id="url-input"
-                placeholder="Ссылка на картинку" 
-                defaultValue 
-                required 
-              />
-              <span id="url-input-error" className="popup__input-error"></span>
-      </PopupWithForm> */}
 
       <ImagePopup 
         onClose={closeAllPopups}
