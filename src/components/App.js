@@ -6,6 +6,7 @@ import Main from './Main.js';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm.js';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 import ImagePopup from './ImagePopup.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
@@ -59,8 +60,8 @@ function App() {
 
   function handleUpdateUser({name, about}) {
     api.updateUserInfo({name, about})
-      .then((result) => {
-        updateCurrentUser(result)
+      .then((userInfo) => {
+        updateCurrentUser(userInfo)
       })
       .then(() => {
         closeAllPopups()
@@ -68,6 +69,19 @@ function App() {
       .catch(() => {
         console.log('Ошибка')
     }) 
+  }
+
+  function handleUpdateAvatar({avatar}) {
+    api.editProfileAvatar({avatar})
+      .then((userInfo) => {
+        updateCurrentUser(userInfo)
+      })
+      .then(() => {
+        closeAllPopups()
+      })
+      .catch(() => {
+        console.log('Ошибка')
+      })
   }
 
 
@@ -134,7 +148,14 @@ function App() {
         >
       </PopupWithForm>
 
-      <PopupWithForm 
+      <EditAvatarPopup 
+        isOpen={isEditAvatarPopupOpen} 
+        onClose={closeAllPopups} 
+        onOverlayClick={handleOverlayClick}
+        onUpdateAvatar={handleUpdateAvatar}
+      /> 
+
+      {/* <PopupWithForm 
       title="Обновить аватар" 
       name="edit-avatar"
       onClose={closeAllPopups}
@@ -153,7 +174,7 @@ function App() {
                 required 
               />
               <span id="url-input-error" className="popup__input-error"></span>
-      </PopupWithForm>
+      </PopupWithForm> */}
 
       <ImagePopup 
         onClose={closeAllPopups}
