@@ -8,6 +8,7 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForm.js';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
@@ -123,6 +124,19 @@ function App() {
       })
   }
 
+  function handleAddPlaceSubmit({name, link}) {
+    api.addNewCard({name, link})
+      .then((newCard) => {
+        setCards([newCard, ...cards]); 
+      })
+      .then(() => {
+        closeAllPopups()
+      })
+      .catch(() => {
+        console.log('Ошибка')
+      })
+  }
+
 
   return (
     <>
@@ -146,40 +160,14 @@ function App() {
         isOpen={isEditProfilePopupOpen} 
         onOverlayClick={handleOverlayClick}
         onUpdateUser={handleUpdateUser}
-      /> 
+      />
 
-      <PopupWithForm 
-        title="Новое место" 
-        name="add-card"
-        onClose={closeAllPopups}
-        isOpen={isAddPlacePopupOpen ? 'popup_is-opened' : ''}
-        popupContainerClass={'popup__container'}
-        buttonText="Создать"
-        onOverlayClick={handleOverlayClick}
-        >
-              <input 
-                className="popup__input popup__input_type_new-name" 
-                type="text" 
-                name="name" 
-                id="new-name-input"
-                placeholder="Название" 
-                defaultValue 
-                required 
-                minLength="2" 
-                maxLength="30" 
-              />
-              <span id="new-name-input-error" className="popup__input-error"></span>
-              <input 
-                className="popup__input  popup__input_type_link" 
-                type="url" 
-                name="link" 
-                id="link-input"
-                placeholder="Ссылка на картинку" 
-                defaultValue 
-                required 
-              />
-              <span id="link-input-error" className="popup__input-error"></span>
-      </PopupWithForm>
+      <AddPlacePopup
+        onClose={closeAllPopups} 
+        isOpen={isAddPlacePopupOpen}
+        onOverlayClick={handleOverlayClick} 
+        onAddPlace={handleAddPlaceSubmit}
+      /> 
 
       <PopupWithForm 
         title="Вы уверены?" 
