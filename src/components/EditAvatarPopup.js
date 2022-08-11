@@ -17,7 +17,7 @@ export default function EditAvatarPopup(props) {
         title="Обновить аватар" 
         name="edit-avatar"
         onClose={props.onClose}
-        isOpen={props.isOpen ? 'popup_is-opened' : ''}
+        isOpen={props.isOpen}
         popupContainerClass={'popup__avatar-container'}
         buttonText="Сохранить"
         onOverlayClick={props.onOverlayClick}

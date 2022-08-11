@@ -34,7 +34,7 @@ export default function EditProfilePopup(props) {
             <PopupWithForm 
                 title="Редактировать профиль" 
                 name="edit-profile"
-                isOpen={props.isOpen ? 'popup_is-opened' : ''}
+                isOpen={props.isOpen}
                 onClose={props.onClose}
                 onOverlayClick={props.onOverlayClick}
                 popupContainerClass={'popup__container'}

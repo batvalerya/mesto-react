@@ -1,5 +1,6 @@
 import PopupWithForm from './PopupWithForm.js';
 import { useRef } from 'react';
+
 export default function AddPlacePopup(props) {
 
     const cardNameRef = useRef();
@@ -19,7 +20,7 @@ export default function AddPlacePopup(props) {
         title="Новое место" 
         name="add-card"
         onClose={props.onClose}
-        isOpen={props.isOpen ? 'popup_is-opened' : ''}
+        isOpen={props.isOpen}
         popupContainerClass={'popup__container'}
         buttonText="Создать"
         onOverlayClick={props.onOverlayClick}

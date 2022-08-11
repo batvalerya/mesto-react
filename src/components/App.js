@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { api } from '../utils/api';
-import '../index.css';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer';
@@ -14,7 +13,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 function App() {
 
-  const [currentUser, updateCurrentUser] = useState([]);
+  const [currentUser, updateCurrentUser] = useState({});
 
   const [cards, setCards] = useState([]);
 
@@ -24,6 +23,9 @@ function App() {
 
     api.changeLikeCardStatus(card._id, isLiked)
         .then((newCard) => {setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    })
+    .catch(() => {
+      console.log('Ошибка')
     });
   }
 
@@ -31,7 +33,7 @@ function App() {
     const isOwn = card.owner._id === currentUser._id;
     if(isOwn) {
       api.removeCard(card._id)
-      .then(() => {setCards((state) => state.filter((c) => c._id ===  card._id ? false : true));
+      .then(() => {setCards((state) => state.filter((c) => c._id !==  card._id));
       })
       .catch(() => {
         console.log('Ошибка')
@@ -101,9 +103,7 @@ function App() {
   function handleUpdateUser({name, about}) {
     api.updateUserInfo({name, about})
       .then((userInfo) => {
-        updateCurrentUser(userInfo)
-      })
-      .then(() => {
+        updateCurrentUser(userInfo);
         closeAllPopups()
       })
       .catch(() => {
@@ -114,9 +114,7 @@ function App() {
   function handleUpdateAvatar({avatar}) {
     api.editProfileAvatar({avatar})
       .then((userInfo) => {
-        updateCurrentUser(userInfo)
-      })
-      .then(() => {
+        updateCurrentUser(userInfo);
         closeAllPopups()
       })
       .catch(() => {
@@ -128,8 +126,6 @@ function App() {
     api.addNewCard({name, link})
       .then((newCard) => {
         setCards([newCard, ...cards]); 
-      })
-      .then(() => {
         closeAllPopups()
       })
       .catch(() => {
